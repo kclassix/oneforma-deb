@@ -1,6 +1,8 @@
 import puppeteer from "puppeteer";
 import *  as chromeLauncher from "chrome-launcher";
 import fs from 'fs';
+import { dialog } from 'electron';
+
 
 const sleep = (milliseconds) => {
     return new Promise((resolve) => setTimeout(resolve, milliseconds));
@@ -878,22 +880,22 @@ async function createOneFormaNormally(userDetails, gotNewData, sendReconnect) {
                 await sleep(4000);
                 await newPage.click("#login_btn");
 
+                dialog.showErrorBox(`go`, `1`);
+
                 while (redirectResult.includes('emailactivated=1')) {
                     await sleep(4000);
                     await newPage.click("#login_btn");
                     await sleep(3000);
                     redirectResult = newPage.url();
                 };
-                let urlCheck = newPage.url();
 
-                while (!urlCheck.includes('UserPortal')) {
-                    await sleep(2000);
-                    urlCheck = newPage.url();
-                };
-
+                dialog.showErrorBox(`go`, `2`);
+                
                 let cookies = await newPage.cookies();
 
                 await sleep(2000);
+
+                dialog.showErrorBox(`go`, `3`);
 
                 await newPage.goto('https://my.oneforma.com/UserPortal/profile#about_me', {
                     timeout: 0,
