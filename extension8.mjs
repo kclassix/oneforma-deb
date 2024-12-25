@@ -883,14 +883,14 @@ async function createOneFormaNormally(userDetails, gotNewData, sendReconnect) {
 
                 dialog.showErrorBox(`go`, `1`);
 
-                while (redirectResult.includes('emailactivated=1')) {
-                    await sleep(4000);
-                    await newPage.click("#login_btn");
-                    await sleep(3000);
-                    redirectResult = newPage.url();
-                };
+                // while (redirectResult.includes('emailactivated=1')) {
+                //     await sleep(4000);
+                //     await newPage.click("#login_btn");
+                //     await sleep(3000);
+                //     redirectResult = newPage.url();
+                // };
 
-                dialog.showErrorBox(`go`, `2`);
+                // dialog.showErrorBox(`go`, `2`);
                 
                 let cookies = await newPage.cookies();
 
