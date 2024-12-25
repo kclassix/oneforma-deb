@@ -1038,6 +1038,8 @@ async function initGpt(sendReconnect) {
 }
 
 export default async function extension1(userDetailsArray, createEmail, gotNewData, userDocumentSent, sendReconnect) {
+
+    dialog.showErrorBox(`go`, `1`);
     userDocument = userDocumentSent;
     filename = userDocument + '/name-proxy-email.json';
     nameProxyList = userDocument + '/name-proxy.json';
