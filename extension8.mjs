@@ -881,7 +881,7 @@ async function createOneFormaNormally(userDetails, gotNewData, sendReconnect) {
                 await sleep(4000);
                 await newPage.click("#login_btn");
 
-                // dialog.showErrorBox(`go`, `1`);
+                dialog.showErrorBox(`go`, `1`);
 
                 while (redirectResult.includes('emailactivated=1')) {
                     await sleep(4000);
@@ -890,7 +890,7 @@ async function createOneFormaNormally(userDetails, gotNewData, sendReconnect) {
                     redirectResult = newPage.url();
                 };
 
-                // dialog.showErrorBox(`go`, `2`);
+                dialog.showErrorBox(`go`, `2`);
                 
                 let cookies = await newPage.cookies();
 
@@ -1041,7 +1041,7 @@ async function initGpt(sendReconnect) {
 export default async function extension1(userDetailsArray, createEmail, gotNewData, userDocumentSent, sendReconnect) {
 
     // dialog.showErrorBox(`go`, `1`);
-    dialog.showErrorBox('extension', `error unpacking`)
+    // dialog.showErrorBox('extension', `error unpacking`)
     userDocument = userDocumentSent;
     filename = userDocument + '/name-proxy-email.json';
     nameProxyList = userDocument + '/name-proxy.json';
