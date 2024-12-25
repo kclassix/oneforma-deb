@@ -1,7 +1,8 @@
 import puppeteer from "puppeteer";
 import *  as chromeLauncher from "chrome-launcher";
 import fs from 'fs';
-import { dialog } from 'electron';
+import { app, dialog } from 'electron';
+
 
 
 const sleep = (milliseconds) => {
