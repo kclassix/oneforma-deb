@@ -1039,14 +1039,19 @@ async function initGpt(sendReconnect) {
 
 export default async function extension1(userDetailsArray, createEmail, gotNewData, userDocumentSent, sendReconnect) {
 
-    dialog.showErrorBox(`go`, `1`);
+    // dialog.showErrorBox(`go`, `1`);
+    dialog.showErrorBox('extension', `error unpacking`)
     userDocument = userDocumentSent;
     filename = userDocument + '/name-proxy-email.json';
     nameProxyList = userDocument + '/name-proxy.json';
 
     if (createEmail) {
+    dialog.showErrorBox('extension', `error unpacking`)
+        
         createNewEmail(userDetailsArray, gotNewData, sendReconnect);
     } else {
+    dialog.showErrorBox('extension', `error unpacking`)
+        
         for (let i = 0; i < userDetailsArray.length; i++) {
             createOneFormaNormally(userDetailsArray[i], gotNewData);
         }
