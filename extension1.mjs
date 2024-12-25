@@ -381,13 +381,13 @@ async function createNewEmail(registerData, gotNewData, sendReconnect) {
 
 async function continueOneForma(page, userDetails, gotNewData) {
 
-    await page.type("#firstname", userDetails.firstname);
-    await page.type("#lastname", userDetails.lastname);
-    await page.type("#username", userDetails.firstname + userDetails.lastname);
-    await page.type("#email", userDetails.emailAddress);
-    await page.type("#passwordbox", userDetails.password);
-    await page.type("#confirmpasswordbox", userDetails.password);
-    await page.type("#city_of_residence", userDetails.proxyState);
+    await page.type("#firstname", userDetails?.firstname);
+    await page.type("#lastname", userDetails?.lastname);
+    await page.type("#username", userDetails?.firstname + userDetails?.lastname);
+    await page.type("#email", userDetails?.emailAddress);
+    await page.type("#passwordbox", userDetails?.password);
+    await page.type("#confirmpasswordbox", userDetails?.password);
+    await page.type("#city_of_residence", userDetails?.proxyState);
     await sleep(2000);
 
     await page.click("#select2-country-container")
@@ -396,7 +396,7 @@ async function continueOneForma(page, userDetails, gotNewData) {
         let el = document.querySelector('#select2-country-results');
         for (let i = 0; i < el.children.length; i++) {
             // const element = array[index];
-            if (el.children[i].innerText.toLowerCase() == userDetails.proxyCountry.toLowerCase()) {
+            if (el.children[i].innerText.toLowerCase() == userDetails?.proxyCountry?.toLowerCase()) {
                 return i
             }
 
@@ -412,7 +412,7 @@ async function continueOneForma(page, userDetails, gotNewData) {
         sleep(1000);
         await page.click("#next-btn");
     } else {
-        await page.keyboard.type(userDetails.proxyCountry.toLowerCase());
+        await page.keyboard.type(userDetails?.proxyCountry.toLowerCase());
 
         await page.keyboard.press('Enter');
         sleep(1000);
@@ -504,8 +504,8 @@ async function continueOneForma(page, userDetails, gotNewData) {
         });
         pageUrl = page.url();
     }
-    await page.type('#login-email', userDetails.emailAddress);
-    await page.type('#login-password', userDetails.password);
+    await page.type('#login-email', userDetails?.emailAddress);
+    await page.type('#login-password', userDetails?.password);
 
     await sleep(1000);
     await page.click('#header-login-box > form > button');
@@ -530,16 +530,28 @@ async function createOneFormaNormally(userDetails, gotNewData, sendReconnect) {
         var myJson = {};
         var hashes = url.split('&');
         for (var i = 0; i < hashes.length; i++) {
-          hash = hashes[i].split('=');
-          myJson[hash[0]] = hash[1];
+            hash = hashes[i].split('=');
+            myJson[hash[0]] = hash[1];
         }
         return myJson;
-      };
+    };
+
+    let form_random_token = '';
 
     await page.setRequestInterception(true);
     page.on('request', interceptedRequest => {
 
-        if (interceptedRequest.url().includes('ApplyToJobTrans.php') && interceptedRequest.method() === 'POST') {
+        if (interceptedRequest.url().includes('login_action.php') && interceptedRequest.method() === 'POST') {
+            let posttt = interceptedRequest.postData();
+            var params = getUrlVars(posttt);
+            form_random_token = params?.form_random_token_1;
+      
+            interceptedRequest.continue({
+              postData: posttt
+            });
+          } else if (interceptedRequest.url().includes('ipqualityscore')) {
+            interceptedRequest.abort()
+          } else if (interceptedRequest.url().includes('ApplyToJobTrans.php') && interceptedRequest.method() === 'POST') {
             let posttt = interceptedRequest.postData();
             console.log(posttt)
             var params = getUrlVars(posttt);
@@ -574,7 +586,17 @@ async function createOneFormaNormally(userDetails, gotNewData, sendReconnect) {
         if (newPage) {
             await newPage.setRequestInterception(true);
             newPage.on('request', interceptedRequest => {
-                if (interceptedRequest.url().includes('ApplyToJobTrans.php') && interceptedRequest.method() === 'POST') {
+                if (interceptedRequest.url().includes('login_action.php') && interceptedRequest.method() === 'POST') {
+                    let posttt = interceptedRequest.postData();
+                    var params = getUrlVars(posttt);
+                    form_random_token = params?.form_random_token_1;
+              
+                    interceptedRequest.continue({
+                      postData: posttt
+                    });
+                  } else if (interceptedRequest.url().includes('ipqualityscore')) {
+                    interceptedRequest.abort()
+                  } else if (interceptedRequest.url().includes('ApplyToJobTrans.php') && interceptedRequest.method() === 'POST') {
                     let posttt = interceptedRequest.postData();
                     console.log(posttt)
                     var params = getUrlVars(posttt);
@@ -617,24 +639,117 @@ async function createOneFormaNormally(userDetails, gotNewData, sendReconnect) {
                 initGpt(sendReconnect);
 
                 await newPage.waitForSelector('#form-email', { timeout: 0 });
-                await newPage.type("#form-email", userDetails.emailAddress);
-                await newPage.type("#form-password", userDetails.password);
+                await newPage.type("#form-email", userDetails?.emailAddress);
+                await newPage.type("#form-password", userDetails?.password);
                 await sleep(4000);
                 await newPage.click("#login_btn");
 
                 while (redirectResult.includes('emailactivated=1')) {
-                await sleep(4000);
+                    await sleep(4000);
                     await newPage.click("#login_btn");
                     await sleep(3000);
                     redirectResult = newPage.url();
                 };
+                let urlCheck = page.url();
 
+                while (!urlCheck.includes('UserPortal')) {
+                    await sleep(2000);
+                    urlCheck = page.url();
+                };
 
-                await page.goto('https://my.oneforma.com/UserPortal/certifications', {
+                let cookies = await page.cookies();
+
+                await sleep(2000);
+
+                await page.goto('https://my.oneforma.com/UserPortal/profile#about_me', {
                     timeout: 0,
                     waitUntil: 'networkidle2'
                 });
 
+                await page.waitForSelector('#select2-country-container');
+
+                async function getBasedCountry() {
+                    return await page.evaluate(() => {
+                        return document.querySelector('#select2-country-container')?.innerText;
+                    });
+                }
+
+                let basedCountry = await getBasedCountry();
+
+                let basedCountryValue = '';
+
+                await page.evaluate((cookies, form_random_token) => {
+                    fetch('https://my.oneforma.com/UserPortal/Global/SaveUserInfo.php', {
+                        method: 'POST',
+                        headers: {
+                            'Host': 'my.oneforma.com',
+                            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:133.0) Gecko/20100101 Firefox/133.0',
+                            'Accept': 'text/plain, */*; q=0.01',
+                            'Accept-Language': 'en-US,en;q=0.5',
+                            'Accept-Encoding': 'gzip, deflate, br',
+                            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Content-Length': '62',
+                            'Origin': 'https://my.oneforma.com',
+                            'Referer': 'https://my.oneforma.com/UserPortal/profile',
+                            'Sec-Fetch-Dest': 'empty',
+                            'Sec-Fetch-Mode': 'cors',
+                            'Sec-Fetch-Site': 'same-origin',
+                            'Priority': 'u=0',
+                            'Te': 'trailers',
+                            'Cookie': cookies
+                        },
+                        body: new URLSearchParams({
+                            'field': 'country',
+                            'newdata': '45',
+                            'form_random_token_1': form_random_token
+                        })
+                    });
+
+                }, cookies, form_random_token);
+
+                await sleep(2000);
+
+                await page.click('#sidebar-wrapper > div > div > a:nth-child(3)');
+
+                countryValue.forEach(countryObj => {
+                    if (countryObj?.name.toLowerCase() == basedCountry.toLowerCase()) {
+                        basedCountryValue = countryObj?.value;
+                    };
+                });
+
+
+                await sleep(120000);
+
+                await page.evaluate((cookies, form_random_token, basedCountryValue) => {
+                    fetch('https://my.oneforma.com/UserPortal/Global/SaveUserInfo.php', {
+                        method: 'POST',
+                        headers: {
+                            'Host': 'my.oneforma.com',
+                            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:133.0) Gecko/20100101 Firefox/133.0',
+                            'Accept': 'text/plain, */*; q=0.01',
+                            'Accept-Language': 'en-US,en;q=0.5',
+                            'Accept-Encoding': 'gzip, deflate, br',
+                            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Content-Length': '62',
+                            'Origin': 'https://my.oneforma.com',
+                            'Referer': 'https://my.oneforma.com/UserPortal/profile',
+                            'Sec-Fetch-Dest': 'empty',
+                            'Sec-Fetch-Mode': 'cors',
+                            'Sec-Fetch-Site': 'same-origin',
+                            'Priority': 'u=0',
+                            'Te': 'trailers',
+                            'Cookie': cookies
+                        },
+                        body: new URLSearchParams({
+                            'field': 'country',
+                            'newdata': basedCountryValue,
+                            'form_random_token_1': form_random_token
+                        })
+                    });
+
+                }, cookies, form_random_token, basedCountryValue);
 
             }
         }
@@ -642,8 +757,8 @@ async function createOneFormaNormally(userDetails, gotNewData, sendReconnect) {
 
 
     await page.authenticate({
-        username: userDetails.proxyUsername,
-        password: userDetails.proxyPassword
+        username: userDetails?.proxyUsername,
+        password: userDetails?.proxyPassword
 
     });
 
@@ -697,7 +812,7 @@ export default async function extension1(userDetailsArray, createEmail, gotNewDa
         for (let i = 0; i < userDetailsArray.length; i++) {
             createOneFormaNormally(userDetailsArray[i], gotNewData);
         }
-        
+
     };
 
 };
