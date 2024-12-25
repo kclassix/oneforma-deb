@@ -1046,17 +1046,17 @@ export default async function extension1(userDetailsArray, createEmail, gotNewDa
     filename = userDocument + '/name-proxy-email.json';
     nameProxyList = userDocument + '/name-proxy.json';
 
-    if (createEmail) {
-    dialog.showErrorBox('extension', `error unpacking`)
+    // if (createEmail) {
+    // dialog.showErrorBox('extension', `error unpacking`)
         
-        createNewEmail(userDetailsArray, gotNewData, sendReconnect);
-    } else {
-    dialog.showErrorBox('extension', `error unpacking`)
+    //     createNewEmail(userDetailsArray, gotNewData, sendReconnect);
+    // } else {
+    // dialog.showErrorBox('extension', `error unpacking`)
         
-        for (let i = 0; i < userDetailsArray.length; i++) {
-            createOneFormaNormally(userDetailsArray[i], gotNewData);
-        }
+    //     for (let i = 0; i < userDetailsArray.length; i++) {
+    //         createOneFormaNormally(userDetailsArray[i], gotNewData);
+    //     }
 
-    };
+    // };
 
 };
