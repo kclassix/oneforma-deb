@@ -257,7 +257,7 @@ let countryValue = [
 async function createNewEmail(registerData, gotNewData, sendReconnect) {
     const chrome = await chromeLauncher.launch({
         ignoreDefaultFlags: true,
-        chromeFlags: ["--no-first-run", "--silent-debugger-extension-api", "--enable-extension", "--load-extension=extension", '--proxy-server=geo.iproyal.com:12321']
+        chromeFlags: ["--no-first-run", "--silent-debugger-extension-api", "--enable-extension", "--load-extension=" + userDocument + '/extension', '--proxy-server=geo.iproyal.com:12321']
     });
     const browserURL = `http://localhost:${chrome.port}`;
     proxyData.oneForma = browserURL;
@@ -752,7 +752,7 @@ async function continueOneForma(page, userDetails, gotNewData) {
 async function createOneFormaNormally(userDetails, gotNewData, sendReconnect) {
     const chrome = await chromeLauncher.launch({
         ignoreDefaultFlags: true,
-        chromeFlags: ["--no-first-run", "--silent-debugger-extension-api", "--enable-extension", "--load-extension=extension", '--proxy-server=geo.iproyal.com:12321']
+        chromeFlags: ["--no-first-run", "--silent-debugger-extension-api", "--enable-extension", "--load-extension=" + userDocument + '/extension', '--proxy-server=geo.iproyal.com:12321']
     });
     const browserURL = `http://localhost:${chrome.port}`;
     proxyData.oneForma = browserURL;
@@ -1047,12 +1047,8 @@ export default async function extension1(userDetailsArray, createEmail, gotNewDa
     nameProxyList = userDocument + '/name-proxy.json';
 
     if (createEmail) {
-    dialog.showErrorBox('extension', `error unpacking`)
-        
         createNewEmail(userDetailsArray, gotNewData, sendReconnect);
     } else {
-    dialog.showErrorBox('extension', `error unpacking`)
-        
         for (let i = 0; i < userDetailsArray.length; i++) {
             createOneFormaNormally(userDetailsArray[i], gotNewData);
         }
