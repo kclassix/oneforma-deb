@@ -17,241 +17,6 @@ let proxyData = {
 };
 
 
-let countryValue = [
-  { name: "Abkhazia", value: "1" },
-  { name: "Afghanistan", value: "2" },
-  { name: "Albania", value: "3" },
-  { name: "Algeria", value: "4" },
-  { name: "American Samoa", value: "5" },
-  { name: "Andorra", value: "6" },
-  { name: "Angola", value: "7" },
-  { name: "Anguilla", value: "8" },
-  { name: "Antigua & Barbuda", value: "9" },
-  { name: "Argentina", value: "10" },
-  { name: "Armenia", value: "11" },
-  { name: "Aruba", value: "12" },
-  { name: "Australia", value: "13" },
-  { name: "Austria", value: "14" },
-  { name: "Azerbaijan", value: "15" },
-  { name: "Bahamas", value: "16" },
-  { name: "Bahrain", value: "17" },
-  { name: "Bangladesh", value: "18" },
-  { name: "Barbados", value: "19" },
-  { name: "Belarus", value: "20" },
-  { name: "Belgium", value: "21" },
-  { name: "Belize", value: "22" },
-  { name: "Benin", value: "23" },
-  { name: "Bermuda", value: "24" },
-  { name: "Bhutan", value: "25" },
-  { name: "Bolivia", value: "26" },
-  { name: "Bonaire", value: "27" },
-  { name: "Bosnia & Herzegovina", value: "28" },
-  { name: "Botswana", value: "29" },
-  { name: "Brazil", value: "30" },
-  { name: "Brunei", value: "32" },
-  { name: "Bulgaria", value: "33" },
-  { name: "Burkina Faso", value: "34" },
-  { name: "Burundi", value: "35" },
-  { name: "Cambodia", value: "36" },
-  { name: "Cameroon", value: "37" },
-  { name: "Canada", value: "38" },
-  { name: "Cape Verde", value: "39" },
-  { name: "Cayman Islands", value: "40" },
-  { name: "Central African Republic", value: "41" },
-  { name: "Chad", value: "42" },
-  { name: "Chile", value: "44" },
-  { name: "China", value: "45" },
-  { name: "Colombia", value: "48" },
-  { name: "Congo", value: "50" },
-  { name: "Costa Rica", value: "52" },
-  { name: "Cote D'Ivoire", value: "53" },
-  { name: "Croatia", value: "54" },
-  { name: "Cuba", value: "55" },
-  { name: "Cyprus", value: "57" },
-  { name: "Czech Republic", value: "58" },
-  { name: "Denmark", value: "59" },
-  { name: "Djibouti", value: "60" },
-  { name: "Dominica", value: "61" },
-  { name: "Dominican Republic", value: "62" },
-  { name: "East Timor", value: "63" },
-  { name: "Ecuador", value: "64" },
-  { name: "Egypt", value: "65" },
-  { name: "El Salvador", value: "66" },
-  { name: "Equatorial Guinea", value: "67" },
-  { name: "Eritrea", value: "68" },
-  { name: "Estonia", value: "69" },
-  { name: "Ethiopia", value: "70" },
-  { name: "Fiji", value: "73" },
-  { name: "Finland", value: "74" },
-  { name: "France", value: "75" },
-  { name: "French Guiana", value: "76" },
-  { name: "French Polynesia", value: "77" },
-  { name: "Gabon", value: "79" },
-  { name: "Gambia", value: "80" },
-  { name: "Georgia", value: "81" },
-  { name: "Germany", value: "82" },
-  { name: "Ghana", value: "83" },
-  { name: "Gibraltar", value: "84" },
-  { name: "Greece", value: "85" },
-  { name: "Grenada", value: "87" },
-  { name: "Guadeloupe", value: "88" },
-  { name: "Guam", value: "89" },
-  { name: "Guatemala", value: "90" },
-  { name: "Guinea", value: "91" },
-  { name: "Guyana", value: "92" },
-  { name: "Haiti", value: "93" },
-  { name: "Honduras", value: "94" },
-  { name: "Hong Kong", value: "95" },
-  { name: "Hungary", value: "96" },
-  { name: "Iceland", value: "97" },
-  { name: "India", value: "98" },
-  { name: "Indonesia", value: "99" },
-  { name: "Iran", value: "100" },
-  { name: "Iraq", value: "101" },
-  { name: "Ireland", value: "102" },
-  { name: "Israel", value: "103" },
-  { name: "Italy", value: "104" },
-  { name: "Jamaica", value: "105" },
-  { name: "Japan", value: "106" },
-  { name: "Jordan", value: "107" },
-  { name: "Kazakhstan", value: "108" },
-  { name: "Kenya", value: "109" },
-  { name: "Kiribati", value: "110" },
-  { name: "Korea North", value: "111" },
-  { name: "Korea South", value: "112" },
-  { name: "Kuwait", value: "113" },
-  { name: "Kyrgyzstan", value: "114" },
-  { name: "Laos", value: "115" },
-  { name: "Latvia", value: "116" },
-  { name: "Lebanon", value: "117" },
-  { name: "Lesotho", value: "118" },
-  { name: "Liberia", value: "119" },
-  { name: "Libya", value: "120" },
-  { name: "Liechtenstein", value: "121" },
-  { name: "Lithuania", value: "122" },
-  { name: "Luxembourg", value: "123" },
-  { name: "Macau", value: "124" },
-  { name: "Macedonia", value: "125" },
-  { name: "Madagascar", value: "126" },
-  { name: "Malawi", value: "127" },
-  { name: "Malaysia", value: "128" },
-  { name: "Maldives", value: "129" },
-  { name: "Mali", value: "130" },
-  { name: "Malta", value: "131" },
-  { name: "Martinique", value: "133" },
-  { name: "Mauritania", value: "134" },
-  { name: "Mauritius", value: "135" },
-  { name: "Mexico", value: "137" },
-  { name: "Moldova", value: "139" },
-  { name: "Monaco", value: "140" },
-  { name: "Mongolia", value: "141" },
-  { name: "Morocco", value: "142" },
-  { name: "Mozambique", value: "143" },
-  { name: "Myanmar", value: "144" },
-  { name: "Namibia", value: "145" },
-  { name: "Nepal", value: "147" },
-  { name: "The Netherlands", value: "149" },
-  { name: "New Caledonia", value: "150" },
-  { name: "New Zealand", value: "151" },
-  { name: "Nicaragua", value: "152" },
-  { name: "Niger", value: "153" },
-  { name: "Nigeria", value: "154" },
-  { name: "Norway", value: "157" },
-  { name: "Oman", value: "158" },
-  { name: "Pakistan", value: "159" },
-  { name: "Palestine", value: "161" },
-  { name: "Panama", value: "162" },
-  { name: "Papua New Guinea", value: "163" },
-  { name: "Paraguay", value: "164" },
-  { name: "Peru", value: "165" },
-  { name: "Philippines", value: "166" },
-  { name: "Poland", value: "168" },
-  { name: "Portugal", value: "169" },
-  { name: "Puerto Rico", value: "170" },
-  { name: "Qatar", value: "171" },
-  { name: "Montenegro", value: "172" },
-  { name: "Republic of Serbia", value: "173" },
-  { name: "Reunion", value: "174" },
-  { name: "Romania", value: "175" },
-  { name: "Russia", value: "176" },
-  { name: "Rwanda", value: "177" },
-  { name: "Saint Lucia", value: "178" },
-  { name: "Saipan", value: "179" },
-  { name: "San Marino", value: "182" },
-  { name: "Sao Tome & Principe", value: "183" },
-  { name: "Saudi Arabia", value: "184" },
-  { name: "Senegal", value: "185" },
-  { name: "Serbia", value: "186" },
-  { name: "Seychelles", value: "187" },
-  { name: "Sierra Leone", value: "188" },
-  { name: "Singapore", value: "189" },
-  { name: "Slovakia", value: "190" },
-  { name: "Slovenia", value: "191" },
-  { name: "Solomon Islands", value: "192" },
-  { name: "Somalia", value: "193" },
-  { name: "South Africa", value: "194" },
-  { name: "Spain", value: "195" },
-  { name: "Sri Lanka", value: "196" },
-  { name: "St Kitts-Nevis", value: "200" },
-  { name: "St Vincent & Grenadines", value: "204" },
-  { name: "Sudan", value: "205" },
-  { name: "Suriname", value: "206" },
-  { name: "Swaziland", value: "207" },
-  { name: "Sweden", value: "208" },
-  { name: "Switzerland", value: "209" },
-  { name: "Syria", value: "210" },
-  { name: "Taiwan", value: "212" },
-  { name: "Tajikistan", value: "213" },
-  { name: "Tanzania", value: "214" },
-  { name: "Thailand", value: "215" },
-  { name: "Togo", value: "216" },
-  { name: "Tonga", value: "218" },
-  { name: "Trinidad & Tobago", value: "219" },
-  { name: "Tunisia", value: "220" },
-  { name: "Turkey", value: "221" },
-  { name: "Turkmenistan", value: "222" },
-  { name: "Turks & Caicos Is", value: "223" },
-  { name: "Tuvalu", value: "224" },
-  { name: "Uganda", value: "225" },
-  { name: "Ukraine", value: "226" },
-  { name: "United Arab Emirates", value: "227" },
-  { name: "United Kingdom", value: "228" },
-  { name: "United States of America", value: "229" },
-  { name: "Uruguay", value: "230" },
-  { name: "Uzbekistan", value: "231" },
-  { name: "Vanuatu", value: "232" },
-  { name: "Vatican City State", value: "233" },
-  { name: "Venezuela", value: "234" },
-  { name: "Vietnam", value: "235" },
-  { name: "Virgin Islands (Brit)", value: "236" },
-  { name: "Virgin Islands (USA)", value: "237" },
-  { name: "Yemen", value: "240" },
-  { name: "Zambia", value: "242" },
-  { name: "Zimbabwe", value: "243" },
-  { name: "Sint Maarten", value: "244" },
-  { name: "Curacao", value: "245" },
-  { name: "North Macedonia", value: "248" },
-  { name: "Viet Nam", value: "250" },
-  { name: "Taiwan (Province of China)", value: "251" },
-  { name: "Russian Federation", value: "252" },
-  { name: "Netherlands", value: "253" },
-  { name: "Venezuela (Bolivarian Republic of)", value: "254" },
-  { name: "Tanzania, United Republic of", value: "255" },
-  { name: "Saint Vincent and The Grenadines", value: "256" },
-  { name: "Comoros", value: "257" },
-  { name: "Congo, Democratic Republic of the", value: "258" },
-  { name: "Guinea-Bissau", value: "259" },
-  { name: "Marshall Islands", value: "260" },
-  { name: "Micronesia, Federated States of", value: "261" },
-  { name: "Nauru", value: "262" },
-  { name: "Palau", value: "263" },
-  { name: "Saint Kitts and Nevis", value: "264" },
-  { name: "South Sudan", value: "265" },
-  { name: "Western Sahara", value: "266" },
-  { name: "Montserrat", value: "267" },
-  { name: "Kosovo", value: "268" }];
-
-
 async function createNewEmail(registerData, gotNewData, sendReconnect) {
     const chrome = await chromeLauncher.launch({
         ignoreDefaultFlags: true,
@@ -727,6 +492,20 @@ async function continueOneForma(page, userDetails, gotNewData) {
     };
 
     await sleep(2000);
+
+
+    await page.setRequestInterception(true);
+    page.on("request", (request) => {
+    if (request.resourceType() === "image" || request.resourceType() === 'media') {
+        console.log("Blocking image request: " + request.url());
+        request.abort();
+    } else {
+        request.continue();
+    }
+    });
+
+    // await header-navlogin2-1
+
     await page.goto("https://www.mail.com/#.7518-header-navlogin2-1", {
         waitUntil: "networkidle2",
         timeout: 0
@@ -885,26 +664,26 @@ async function createOneFormaNormally(userDetails, gotNewData, sendReconnect) {
                     await sleep(3000);
                     redirectResult = newPage.url();
                 };
-                let urlCheck = page.url();
+                let urlCheck = newPage.url();
 
                 while (!urlCheck.includes('UserPortal')) {
                     await sleep(2000);
-                    urlCheck = page.url();
+                    urlCheck = newPage.url();
                 };
 
-                let cookies = await page.cookies();
+                let cookies = await newPage.cookies();
 
                 await sleep(2000);
 
-                await page.goto('https://my.oneforma.com/UserPortal/profile#about_me', {
+                await newPage.goto('https://my.oneforma.com/UserPortal/profile#about_me', {
                     timeout: 0,
                     waitUntil: 'networkidle2'
                 });
 
-                await page.waitForSelector('#select2-country-container');
+                await newPage.waitForSelector('#select2-country-container');
 
                 async function getBasedCountry() {
-                    return await page.evaluate(() => {
+                    return await newPage.evaluate(() => {
                         return document.querySelector('#select2-country-container')?.innerText;
                     });
                 }
@@ -913,7 +692,7 @@ async function createOneFormaNormally(userDetails, gotNewData, sendReconnect) {
 
                 let basedCountryValue = '';
 
-                await page.evaluate((cookies, form_random_token) => {
+                await newPage.evaluate((cookies, form_random_token) => {
                     fetch('https://my.oneforma.com/UserPortal/Global/SaveUserInfo.php', {
                         method: 'POST',
                         headers: {
@@ -945,7 +724,7 @@ async function createOneFormaNormally(userDetails, gotNewData, sendReconnect) {
 
                 await sleep(2000);
 
-                await page.click('#sidebar-wrapper > div > div > a:nth-child(3)');
+                await newPage.click('#sidebar-wrapper > div > div > a:nth-child(3)');
 
                 countryValue.forEach(countryObj => {
                     if (countryObj?.name.toLowerCase() == basedCountry.toLowerCase()) {
@@ -956,7 +735,7 @@ async function createOneFormaNormally(userDetails, gotNewData, sendReconnect) {
 
                 await sleep(120000);
 
-                await page.evaluate((cookies, form_random_token, basedCountryValue) => {
+                await newPage.evaluate((cookies, form_random_token, basedCountryValue) => {
                     fetch('https://my.oneforma.com/UserPortal/Global/SaveUserInfo.php', {
                         method: 'POST',
                         headers: {
